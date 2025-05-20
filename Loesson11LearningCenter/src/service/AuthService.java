@@ -4,6 +4,7 @@ import entity.User;
 import entity.enums.Role;
 import static db.DataSource.*;
 import java.util.Optional;
+import service.*;
 
 public class AuthService {
    public void service(){
@@ -14,7 +15,7 @@ public class AuthService {
        for (User user : users) {
            if(user.getEmail().equals(email) && user.getPassword().equals(password)){
                if(user.getRole()==Role.ADMIN){
-                   new AdminService.service();
+                   new  AdminService.service();
                    currentUser=user;
                }
                if(user.getRole()==Role.STUDENT){

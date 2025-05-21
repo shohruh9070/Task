@@ -1,8 +1,15 @@
 package service;
+import entity.Attendance;
 import entity.Group;
+import entity.StudentAttendanceDaily;
 import entity.User;
+import entity.enums.AttendanceStatus;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
+import java.util.UUID;
 
 import static db.DataSource.*;
 public class TeacherService {
@@ -27,7 +34,8 @@ public class TeacherService {
                     removeStudent();
                 }
                 case 3 -> {
-                }
+                    Attendance();
+                              }
                 case 4 -> {
                 }
                 case 5 -> {
@@ -36,6 +44,63 @@ public class TeacherService {
 
         }
     }
+
+    private void Attendance() {
+        ShowGroup();
+        System.out.println(" enter group id");
+        String id  = strScanner.nextLine();
+        for (Group group : groups) {
+            if (group.getId().equals(id))
+            {
+                Attendance attendance = new Attendance();
+                attendance.setId(UUID.randomUUID().toString());
+                attendance.setTeacher(group.getTeacher());
+                attendance.setDate(LocalDate.now());
+                attendance.setGroupId(group.getId());
+                List<StudentAttendanceDaily> list = new ArrayList<>();
+                for (User student : group.getStudents()) {
+                    System.out.println(student);
+                    StudentAttendanceDaily studentAttendanceDaily = new StudentAttendanceDaily();
+                    studentAttendanceDaily.setStatus(AttendanceStatus.ATTENDED);
+                    studentAttendanceDaily.setStudentName(student.getFullName());
+                    studentAttendanceDaily.setStudentId(student.getId());
+                    list.add(studentAttendanceDaily);
+                }
+                attendance.setAttendedStudents(list);
+                attendances.add(attendance);
+                while(true){
+                    System.out.println("""
+                            0 exit
+                            1 student NOT_ATTENDED
+                            """);
+                    switch (scanner.nextInt()){
+                        case 0 ->{return;}
+                        case 1 ->{
+                            student();
+                        }
+                    }
+                }
+
+
+            }
+
+        }
+
+    private void Atten(String id) {
+        for (Attendance attendance : attendances) {
+            if ()
+        }
+    }
+
+
+}
+
+    private void student() {
+        System.out.println(" enter Student id ");
+        String id = strScanner.nextLine();
+
+    }
+
     private void removeStudent() {
         ShowGroup();
         System.out.println(" enter group id ");
@@ -115,4 +180,7 @@ public class TeacherService {
             System.out.println(user);
         }
     }
+}
+
+void main() {
 }

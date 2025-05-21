@@ -1,5 +1,6 @@
 package db;
 
+import entity.Attendance;
 import entity.Group;
 import entity.User;
 import entity.enums.Role;
@@ -17,6 +18,7 @@ public class DataSource {
     public static Set<User> users= new HashSet<>();
     public static Set<User> teachers = new HashSet<>();
     public static Set<Group> groups = new HashSet<>();
+    public static Set<Attendance> attendances = new HashSet<>();
     public static User currentUser = null;
     static {
         User admin = new User("admin","admin","admin", Role.ADMIN);
